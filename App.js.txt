@@ -1,0 +1,51 @@
+import React, { useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import OnboardingPage from './HealthDeskinterviewApp/Components/OnboardingPage';
+import AppointmentPage from './HealthDeskinterviewApp/Components/AppointmentPage';
+import LoginPage from './HealthDeskinterviewApp/Components/LoginPage';
+import HomePage from './HealthDeskinterviewApp/Components/HomePage';
+import BookAppointment from './HealthDeskinterviewApp/Components/BookAppointment';
+import { Screen } from 'react-native-screens';
+
+const Stack = createStackNavigator();
+
+const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState('');
+
+  const handleLogin = (username) => {
+    setUsername(username);
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setUsername('');
+    setIsLoggedIn(false);
+  };
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Onboarding">
+        <Stack.Screen name="Onboarding" component={OnboardingPage} options={{ title: 'Onboarding' }} />
+        <Stack.Screen name="Login">
+          {props => <LoginPage {...props} onLogin={handleLogin} />}
+        </Stack.Screen>
+        {/* <Stack.Screen name="Home">
+          {/* {props => (
+            <Screen name="Home" options={{ headerShown: false }}>
+              <HomePage {...props} username={username} onLogout={handleLogout} />
+            </Screen>
+          )} */}
+        <Stack.Screen name='Home' component={HomePage} />   
+        
+        <Stack.Screen name="Appointment" component={AppointmentPage} options={{ title: 'Create Appointment' }} />
+        <Stack.Screen name="Book Appointment" component={BookAppointment} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default App;
+
+NOTE : I Done Mamy Projects So i ncant attached a file app.js so i pasted a code Here 
